@@ -1,0 +1,64 @@
+{% extends 'site/base.html.twig' %}
+
+{% block _content %}
+
+    <div class="row mt-5">
+        <div class="col-6 offset-3 text-center">
+            <p class="h1 text-primary">Radio app</p>
+        </div>
+    </div>
+
+    <div class="card text-center mt-5">
+        <div class="card-header">Choose radio by country or genre</div>
+        <div class="card-body">
+            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+            <div class="form-row">
+                <div class="form-group col-4">{{ form_widget(form.genre) }}</div>
+                <div class="form-group col-4">{{ form_widget(form.country) }}</div>
+                <div class="form-group col-2">{{ form_widget(form.search) }}</div>
+            </div>
+            {{ form_end(form) }}
+            </form>
+        </div>
+    </div>
+
+    {% if genreList is not empty %}
+        <div class="card text-center mt-5">
+            <div class="card-header">Choose genre</div>
+            <div class="card-body">
+                <ul class="row list-inline d-flex justify-content-around">
+                    {% for genre in genreList %}
+                        <li class="list-inline-item h4">
+                            <a
+                                    href="{{ path('genre_radio_channels', { id: genre.id }) }}"
+                                    class="badge {{ random_badge() }}">
+                                {{ genre.name | ucwords }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    {% endif %}
+
+
+    {% if countryList is not empty %}
+        <div class="card text-center mt-5">
+            <div class="card-header">Choose country</div>
+            <div class="card-body">
+                <ul class="row list-inline d-flex justify-content-around">
+                    {% for country in countryList %}
+                        <li class="list-inline-item h4">
+                            <a
+                                    href="{{ path('country_radio_channels', { id: country.id }) }}"
+                                    class="badge {{ random_badge() }}">
+                                {{ country.name | ucwords }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}

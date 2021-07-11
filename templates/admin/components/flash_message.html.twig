@@ -1,0 +1,14 @@
+<div class="row">
+    <div class="col">
+        <div class="alert">
+            {% for label, messages in app.flashes() %}
+                {% for message in messages %}
+                    <div class="flash-container mt-4 alert alert-{{ label }}">
+                        {{ message }}
+                        <span class="close-flash-btn">x</span>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+</div>

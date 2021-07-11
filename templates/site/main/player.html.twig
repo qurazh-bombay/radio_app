@@ -1,0 +1,30 @@
+{% extends 'site/base.html.twig' %}
+
+{% block _stylesheets %}
+
+    {{ encore_entry_link_tags('radio') }}
+
+{% endblock %}
+
+{% block _content %}
+
+    {{ parent() }}
+
+    <div id="app">
+        <Radio></Radio>
+    </div>
+
+{% endblock %}
+
+{% block _javascripts %}
+
+    {{ parent() }}
+
+    {# Get data - radio channels and user cookies #}
+    <script>
+        window.__DATA__ = {{ response | json_encode | raw }};
+    </script>
+
+    {{ encore_entry_script_tags('radio') }}
+
+{% endblock %}

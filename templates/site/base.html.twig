@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block _nav_menu %}
+
+    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+        <div class="container-fluid">
+            <div>
+                <a class="navbar-brand" href="{{ path('main') }}">
+                    <img src="{{ asset('default/image/logo.png') }}"
+                         data-toggle="tooltip"
+                         data-placement="left"
+                         title="Main page"
+                         alt="logo"
+                         width="50"
+                         height="50"
+                         class="d-inline-block align-text-top">
+                </a>
+
+                <a class="navbar-brand" href="{{ path('admin_login') }}">
+                    <img src="{{ asset('default/image/login_icon.png') }}"
+                         data-toggle="tooltip"
+                         data-placement="left"
+                         title="Admin login"
+                         alt="logo"
+                         width="50"
+                         height="50"
+                         class="d-inline-block align-text-top">
+                </a>
+            </div>
+
+            <form action="{{ path('search') }}">
+                <div class="p-2 bg-light rounded rounded-pill shadow-sm">
+                    <div class="input-group">
+                        <input
+                                style="background-color: #e3f2fd;"
+                                name="search-query"
+                                type="search"
+                                placeholder="Search by name"
+                                aria-describedby="button-search"
+                                class="form-control border-0 bg-light me-2">
+                        <div class="input-group-append">
+                            <button
+                                    id="button-search"
+                                    type="submit"
+                                    class="btn btn-link text-primary"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block _body %}
+
+    <!-- Page Content -->
+    <div class="container mt-4">
+        {% block _content %}{% endblock %}
+    </div>
+    <!-- End Page Content -->
+
+{% endblock %}
+
+
+

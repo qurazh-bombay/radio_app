@@ -1,0 +1,10 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block _content %}
+    {% set backRoute = path('admin_genre_list') %}
+    {% set tooltipMessage = 'Go back' %}
+
+    {% include '@admin/components/back_arrow_btn.html.twig' %}
+
+    {% include '@admin/components/form.html.twig' %}
+{% endblock %}

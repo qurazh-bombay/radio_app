@@ -1,0 +1,44 @@
+{% extends 'admin/base_list.html.twig' %}
+
+{% block _content %}
+    {% set addItemRoute = path('admin_genre_create') %}
+    {% set tooltipMessage = 'Add genre' %}
+
+    {% include '@admin/components/add_item.html.twig' %}
+
+    {% if genres.getTotalItemCount > 0 %}
+        <table class="table">
+            <thead class="thead-dark text-center">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">
+                    {{ knp_pagination_sortable(genres, 'Genre name', 'genre.name') }}
+                </th>
+                <th scope="col">Action panel</th>
+            </tr>
+            </thead>
+            <tbody class="text-center">
+            {% for indx, genre in genres %}
+                <tr>
+                    <td>{{ indx + 1 }}</td>
+                    <td>{{ genre.name | ucwords }}</td>
+                    <td>
+                        {% set update_path = path('admin_genre_update', {id: genre.id}) %}
+                        {% set delete_path = path('admin_genre_delete', {id: genre.id}) %}
+                        {% set _token = csrf_token(genre.id | hashMd5) %}
+                        {% include '@admin_table/action_btn.html.twig' %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        {# display navigation #}
+        <div class="navigation">
+            {{ knp_pagination_render(genres) }}
+        </div>
+    {% else %}
+        <p class="text-center">Table is empty</p>
+    {% endif %}
+
+{% endblock %}

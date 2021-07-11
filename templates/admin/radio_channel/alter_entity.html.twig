@@ -1,0 +1,41 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block _content %}
+    {% set backRoute = path('admin_channel_list') %}
+    {% set tooltipMessage = 'Go back' %}
+
+    {% include '@admin/components/back_arrow_btn.html.twig' %}
+
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+            {{ form_row(form.name) }}
+            {{ form_row(form.url) }}
+            {% if form.vars.data.img is not null %}
+                <div class="form-group row">
+                    <div class="col-md-10 offset-md-2 text-left">
+                        <div class="image-block">
+                            <img src="{{ vich_uploader_asset(form.vars.data, 'imgFile') }}" alt="icon_img">
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+            {{ form_rest(form) }}
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block _javascripts %}
+    {{ parent() }}
+
+    {# fix bootstrap bug, render filename in input #}
+    <script>
+        $('#radio_channel_form_imgFile').on('change',function(){
+            //get the file name
+            const fileName = $(this).val();
+            //replace the "Choose a file" label
+            $(this).next('.custom-file-label').html(fileName);
+        })
+    </script>
+{% endblock %}

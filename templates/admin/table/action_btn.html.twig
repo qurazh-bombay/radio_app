@@ -1,0 +1,27 @@
+<a
+        class="btn-round btn btn-info"
+        data-toggle="tooltip"
+        data-placement="left"
+        title="Edit item"
+        href="{{ update_path }}">
+    <i class="fa fa-edit"></i>
+</a>
+<form
+        method="post"
+        style="display: inline-block"
+        class="delete-form"
+        action="{{ delete_path }}">
+    <input type="hidden" name="_method" value="DELETE">
+    <input
+            type="hidden"
+            name="_csrf_token"
+            value="{{ _token }}">
+    <button type="submit" hidden></button>
+    <button
+            data-toggle="tooltip"
+            data-placement="left"
+            title="Delete item"
+            class="btn-round btn btn-danger">
+        <i class="fa fa-trash"></i>
+    </button>
+</form>

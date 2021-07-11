@@ -1,0 +1,12 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block _javascripts %}
+    {{ parent() }}
+
+    {# before delete entity #}
+    <script>
+        $(".delete-form").submit(function(e) {
+            return confirm('Are you really want to delete the item?');
+        });
+    </script>
+{% endblock %}

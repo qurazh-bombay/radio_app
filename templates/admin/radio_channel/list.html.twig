@@ -1,0 +1,64 @@
+{% extends 'admin/base_list.html.twig' %}
+
+{% block _content %}
+    {% set addItemRoute = path('admin_channel_create') %}
+    {% set tooltipMessage = 'Add radio channel' %}
+
+    {% include '@admin/components/add_item.html.twig' %}
+
+    {% if channels.getTotalItemCount > 0 %}
+        <table class="table">
+            <thead class="thead-dark text-center">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Icon</th>
+                <th scope="col">
+                    {{ knp_pagination_sortable(channels, 'Channel name', 'channel.name') }}
+                </th>
+                <th scope="col">
+                    {{ knp_pagination_sortable(channels, 'Channel genre', 'genre.name') }}
+                </th>
+                <th scope="col">
+                    {{ knp_pagination_sortable(channels, 'Channel country', 'country.name') }}
+                </th>
+                <th scope="col">Action panel</th>
+            </tr>
+            </thead>
+            <tbody class="text-center">
+            {% for indx, channel in channels %}
+                <tr>
+                    <td>{{ indx + 1 }}</td>
+                    <td>
+                        {% if channel.img is not null %}
+                        <img
+                                src="{{ vich_uploader_asset(channel, 'imgFile') }}"
+                                alt="channel_icon"
+                                class="img-icon-table"
+                        >
+                        {% else %}
+                            <span>No image</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ channel.name | ucwords }}</td>
+                    <td>{{ channel.genre ? (channel.genre.name | ucwords) : 'Not set' }}</td>
+                    <td>{{ channel.country ? (channel.country.name | ucwords) : 'Not set' }}</td>
+                    <td>
+                        {% set update_path = path('admin_channel_update', {id: channel.id}) %}
+                        {% set delete_path = path('admin_channel_delete', {id: channel.id}) %}
+                        {% set _token = csrf_token(channel.id | hashMd5) %}
+                        {% include '@admin_table/action_btn.html.twig' %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        {# display navigation #}
+        <div class="navigation">
+            {{ knp_pagination_render(channels) }}
+        </div>
+    {% else %}
+        <p class="text-center">Table is empty</p>
+    {% endif %}
+
+{% endblock %}

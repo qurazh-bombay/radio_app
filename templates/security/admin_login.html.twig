@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Login{% endblock %}
+
+{% block _stylesheets %}
+    {{ encore_entry_link_tags('admin') }}
+{% endblock %}
+
+{% block _nav_menu %}
+    <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+        <div class="container-fluid">
+            <div>
+                <a class="navbar-brand" href="{{ path('main') }}">
+                    <img src="{{ asset('default/image/logo.png') }}"
+                         data-toggle="tooltip"
+                         data-placement="left"
+                         title="Main page"
+                         alt="logo"
+                         width="50"
+                         height="50"
+                         class="d-inline-block align-text-top">
+                </a>
+            </div>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block body %}
+    {{ parent() }}
+
+    <div class="container">
+            <form
+                    method="post"
+                    class="mt-5 col-6 offset-3"
+                    novalidate="novalidate"
+                    action="{{ path('admin_login_check') }}">
+
+                {% if error %}
+                    <div class="flash-container alert alert-danger">
+                        {{ error.messageKey }}
+                        <span class="close-flash-btn">x</span>
+                    </div>
+                {% endif %}
+
+                <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+
+                <div class="form-group">
+                    <label for="inputUsername">Username</label>
+                    <input
+                            type="text"
+                            value="{{ last_username }}"
+                            name="username"
+                            id="inputUsername"
+                            class="form-control" required autofocus>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputPassword">Password</label>
+                    <input
+                            type="password"
+                            name="password"
+                            id="inputPassword"
+                            class="form-control" required>
+                </div>
+
+                <input
+                        type="hidden"
+                        name="_csrf_token"
+                        value="{{ csrf_token('authenticate') }}">
+
+                <button class="btn btn-lg btn-primary" type="submit">Sign in</button>
+            </form>
+    </div>
+
+{% endblock %}
+
+{% block _javascripts %}
+    <!-- Flash Message Toggle Script -->
+    <script>
+        $( ".close-flash-btn" ).click(function() {
+            $(this).closest(".flash-container").hide();
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'admin/base_list.html.twig' %}
+
+{% block _content %}
+
+    {% set addItemRoute = path('admin_country_create') %}
+    {% set tooltipMessage = 'Add country' %}
+
+    {% include '@admin/components/add_item.html.twig' %}
+
+    {% if countries.getTotalItemCount > 0 %}
+        <table class="table">
+            <thead class="thead-dark text-center">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">
+                    {{ knp_pagination_sortable(countries, 'Country label', 'country.label') }}
+                </th>
+                <th scope="col">
+                    {{ knp_pagination_sortable(countries, 'Country name', 'country.name') }}
+                </th>
+                <th scope="col">Action panel</th>
+            </tr>
+            </thead>
+            <tbody class="text-center">
+            {% for indx, country in countries %}
+                <tr>
+                    <td>{{ indx + 1 }}</td>
+                    <td>{{ country.label | upper }}</td>
+                    <td>{{ country.name | ucwords }}</td>
+                    <td>
+                        {% set update_path = path('admin_country_update', {id: country.id}) %}
+                        {% set delete_path = path('admin_country_delete', {id: country.id}) %}
+                        {% set _token = csrf_token(country.id | hashMd5) %}
+                        {% include '@admin_table/action_btn.html.twig' %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        {# display navigation #}
+        <div class="navigation">
+            {{ knp_pagination_render(countries) }}
+        </div>
+    {% else %}
+        <p class="text-center">Table is empty</p>
+    {% endif %}
+
+{% endblock %}

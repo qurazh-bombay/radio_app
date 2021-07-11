@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="shortcut icon" href="{{ asset('favicon_flower.ico') }}" type="image/x-icon">
+        <title>{% block title %}Radio app{% endblock %}</title>
+
+        {% block stylesheets %}
+
+            {{ encore_entry_link_tags('app') }}
+
+            {% block _stylesheets %}{% endblock %}
+
+        {% endblock %}
+
+    </head>
+    <body>
+
+        {% block body %}
+
+            {% block _nav_menu %}{% endblock %}
+
+            {% block _message %}{% endblock %}
+
+            {% block _body %}{% endblock %}
+
+        {% endblock %}
+
+    </body>
+    {% block javascripts %}
+
+        {{ encore_entry_script_tags('app') }}
+
+        {% block _javascripts %}{% endblock %}
+
+    {% endblock %}
+</html>

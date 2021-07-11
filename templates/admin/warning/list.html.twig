@@ -1,0 +1,56 @@
+{% extends 'admin/base_list.html.twig' %}
+
+{% block _content %}
+
+    {% if warnings.getTotalItemCount > 0 %}
+        <table class="table">
+            <thead class="thead-dark text-center">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">
+                    {{ knp_pagination_sortable(warnings, 'Status code', 'w.httpStatus') }}
+                </th>
+                <th scope="col">
+                    {{ knp_pagination_sortable(warnings, 'Message', 'w.message') }}
+                </th>
+                <th scope="col">
+                    {{ knp_pagination_sortable(warnings, 'Channel name', 'channel.name') }}
+                </th>
+                <th scope="col">
+                    {{ knp_pagination_sortable(warnings, 'Fixed', 'w.isFixed') }}
+                </th>
+                <th scope="col">Action panel</th>
+            </tr>
+            </thead>
+            <tbody class="text-center">
+            {% for indx, warning in warnings %}
+                <tr>
+                    <td>{{ indx + 1 }}</td>
+                    <td>{{ warning.httpStatus }}</td>
+                    <td>{{ warning.message }}</td>
+                    <td>{{ warning.radioChannel.name | ucwords }}</td>
+                    <td>{{ warning.isFixed ? 'Yes' : 'No' }}</td>
+                    <td>
+                        <a
+                                class="btn-round btn btn-info"
+                                data-toggle="tooltip"
+                                data-placement="left"
+                                title="Edit item"
+                                href="{{ path('admin_warning_update', {id: warning.id}) }}">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        {# display navigation #}
+        <div class="navigation">
+            {{ knp_pagination_render(warnings) }}
+        </div>
+    {% else %}
+        <p class="text-center">Table is empty</p>
+    {% endif %}
+
+{% endblock %}

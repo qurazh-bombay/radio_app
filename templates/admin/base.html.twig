@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin Panel{% endblock %}
+
+{% block _stylesheets %}
+
+    {{ encore_entry_link_tags('admin') }}
+
+{% endblock %}
+
+{% block body %}
+
+    <!-- Wrapper -->
+    <div class="d-flex" id="wrapper">
+
+        <!-- Sidebar -->
+        {% include '@admin/components/sidebar.html.twig' %}
+        <!-- End Sidebar -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+
+            {% block _nav_menu %}
+                <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                    {% include '@admin/components/menu_toggle_btn.html.twig' %}
+                    {% include '@admin/components/nav_menu.html.twig' %}
+                </nav>
+            {% endblock %}
+
+            {% block _message %}
+                {% include '@admin/components/flash_message.html.twig' %}
+            {% endblock %}
+
+            {% block _body %}
+
+                <div class="container-fluid">
+                    {% block _content %}{% endblock %}
+                </div>
+
+            {% endblock %}
+        </div>
+        <!-- End Page Content -->
+
+    </div>
+    <!-- End Wrapper -->
+{% endblock %}
+
+{% block _javascripts %}
+    <!-- Flash Message Toggle Script -->
+    <script>
+        $( ".close-flash-btn" ).click(function() {
+            $(this).closest(".flash-container").hide();
+        });
+    </script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+        $("#menu-toggle").click(function(e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+    </script>
+{% endblock %}
